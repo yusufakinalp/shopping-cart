@@ -22,19 +22,14 @@ public class DeliveryTest {
     Cart cart;
     IDeliveryCostCalculator deliveryCostCalculator;
 
-    @Before
-    public void prepare() {
+    @Test
+    public void calculateDeliveryCost() {
         cloth = new Category("cloth");
         food = new Category("food");
         shirt = new Product("shirt",25.0,cloth);
         pineapple = new Product("pineapple", 10.0, food);
         cart = new Cart();
         deliveryCostCalculator = new DeliveryCostCalculatorFactory().getDeliveryCostCalculator(2.0,2.0,2.0);
-    }
-
-    @Test
-    public void calculateDeliveryCost() {
-        assertNotNull(deliveryCostCalculator);
 
         cart.addItem(shirt, 6);
 
@@ -45,6 +40,11 @@ public class DeliveryTest {
 
     @Test
     public void calculateDeliveryCost2() {
+        cloth = new Category("cloth");
+        food = new Category("food");
+        shirt = new Product("shirt",25.0,cloth);
+        pineapple = new Product("pineapple", 10.0, food);
+        cart = new Cart();
         deliveryCostCalculator = new DeliveryCostCalculatorFactory().getDeliveryCostCalculator(3.0,2.0,2.0);
         cart.addItem(pineapple,5);
         cart.addItem(shirt, 6);

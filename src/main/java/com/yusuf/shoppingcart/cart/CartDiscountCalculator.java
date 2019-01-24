@@ -19,8 +19,9 @@ public class CartDiscountCalculator {
             Category campCat = campaign.getCategory();
 
             if (categoryDiscount.containsKey(campCat)) {
-                if (categoryDiscount.get(campCat) < discount)
+                if (categoryDiscount.get(campCat) < discount) {
                     categoryDiscount.put(campCat, discount);
+                }
             } else {
                 categoryDiscount.put(campCat, discount);
             }

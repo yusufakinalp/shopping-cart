@@ -1,6 +1,8 @@
 package com.yusuf.shoppingcart;
 
 import com.yusuf.shoppingcart.cart.Cart;
+import com.yusuf.shoppingcart.delivery.DeliveryCostCalculatorFactory;
+import com.yusuf.shoppingcart.delivery.IDeliveryCostCalculator;
 import com.yusuf.shoppingcart.discount.*;
 import com.yusuf.shoppingcart.product.Category;
 import com.yusuf.shoppingcart.product.Product;
@@ -40,10 +42,11 @@ public class ShoppingCartApplication {
 
 			cart.applyDiscounts(campaignAmount, campaignRate);
 			cart.applyCoupon(couponAmount,couponRate);
+			IDeliveryCostCalculator deliveryCostCalculator = new DeliveryCostCalculatorFactory().getDeliveryCostCalculator(2.0,2.0,2.45);
+			cart.setDeliveryCost(deliveryCostCalculator.calculateFor(cart));
 
-            System.out.println(cart.getTotalAmount());
-            System.out.println(cart.getCampaignDiscount());
-            System.out.println(cart.getCouponDiscount());
+			cart.print();
+
 		};
 	}
 }

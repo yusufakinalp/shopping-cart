@@ -16,8 +16,9 @@ public class ProductTest {
     public void categoryTest() {
         Category food = new Category("food");
 
+        String title = food.getTitle();
         assertNotNull(food);
-        assertEquals("food", food.getTitle());
+        assertEquals("food", title);
     }
 
     @Test
@@ -25,8 +26,10 @@ public class ProductTest {
         Category electronic = new Category("tech");
         Product phone = new Product("phoneX", 123.4, electronic);
 
+        String title = phone.getTitle();
+        Category category = phone.getCategory();
         assertNotNull(electronic);
-        assertEquals("phoneX", phone.getTitle());
-        assertEquals(electronic, phone.getCategory());
+        assertEquals("phoneX", title);
+        assertEquals(electronic, category);
     }
 }

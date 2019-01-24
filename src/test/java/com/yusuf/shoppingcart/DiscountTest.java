@@ -25,36 +25,53 @@ public class DiscountTest {
 
     @Before
     public void prepare() {
-        cloth = new Category("cloth");
-        food = new Category("food");
-        shirt = new Product("shirt",25.0,cloth);
-        pineapple = new Product("pineapple",10,food);
-        cart = new Cart();
 
+
+    }
+
+    @Test
+    public void discountTest() {
+        cart = new Cart();
+        food = new Category("food");
+        cloth = new Category("cloth");
+        shirt = new Product("shirt",25.0,cloth);
         campaignRate = new Campaign(cloth, 10, 6, DiscountType.RATE);
         campaignAmount = new Campaign(food, 10, 5, DiscountType.AMOUNT);
 
         couponRate = new Coupon(150,15,DiscountType.RATE);
         couponAmount = new Coupon(100,20,DiscountType.AMOUNT);
-    }
 
-    @Test
-    public void discountTest() {
         cart.addItem(shirt, 6);
         cart.applyDiscounts(campaignAmount, campaignRate);
         cart.applyCoupon(couponAmount, couponRate);
 
-        assertEquals(15.0, cart.getCampaignDiscount(), .9);
-        assertEquals(22.5, cart.getCouponDiscount(), .9);
+        double campaignDiscount = cart.getCampaignDiscount();
+        double couponDiscount = cart.getCouponDiscount();
+
+        assertEquals(15.0, campaignDiscount, .9);
+        assertEquals(22.5, couponDiscount, .9);
     }
 
     @Test
     public void discountTest2() {
+        cart = new Cart();
+        cloth = new Category("cloth");
+        food = new Category("food");
+        pineapple = new Product("pineapple",10,food);
+        campaignRate = new Campaign(cloth, 10, 6, DiscountType.RATE);
+        campaignAmount = new Campaign(food, 10, 5, DiscountType.AMOUNT);
+
+        couponRate = new Coupon(150,15,DiscountType.RATE);
+        couponAmount = new Coupon(100,20,DiscountType.AMOUNT);
+
         cart.addItem(pineapple, 10);
         cart.applyDiscounts(campaignAmount, campaignRate);
         cart.applyCoupon(couponAmount, couponRate);
 
-        assertEquals(20.0, cart.getCampaignDiscount(), .9);
-        assertEquals(20.0, cart.getCouponDiscount(), .9);
+        double campaignDiscount = cart.getCampaignDiscount();
+        double couponDiscount = cart.getCouponDiscount();
+
+        assertEquals(20.0, campaignDiscount, .9);
+        assertEquals(20.0, couponDiscount, .9);
     }
 }
