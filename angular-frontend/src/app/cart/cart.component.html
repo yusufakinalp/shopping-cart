@@ -1,0 +1,43 @@
+<br>
+<div class="container">
+  Total Amount : {{ cart.totalAmount | number : '1.2-2'}} TL
+</div>
+<div class="container text-danger">
+  Campaign Discount : {{ cart.campaignDiscount | number : '1.2-2'}} TL
+</div>
+<div class="container text-danger">
+  Coupon Discount : {{ cart.couponDiscount | number : '1.2-2'}} TL
+</div>
+<div class="container">
+  Total Amount After Discount : {{ cart.totalAmountAfterDiscount | number : '1.2-2'}} TL
+</div>
+<div class="container">
+  Delivery Cost : {{ cart.deliveryCost | number : '1.2-2'}} TL
+</div>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Product Name</th>
+      <th scope="col">Category</th>
+      <th scope="col">Quantity</th>
+      <th scope="col">Price</th>
+      <th scope="col">Total</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let product of products">
+      <th scope="row">{{product.title}}</th>
+      <td>{{product.category}}</td>
+      <td>{{product.quantity}}</td>
+      <td>{{product.price | number : '1.2-2'}}</td>
+      <td>{{ product.quantity * product.price | number : '1.2-2'}} TL</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="text-center" (click)="completeShopping()">
+  <a class="btn btn-primary">
+    Complete Shopping
+  </a>
+</div>

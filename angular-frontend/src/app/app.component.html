@@ -1,0 +1,33 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<div style="text-align:center">
+  <h1>
+    Shopping Cart
+  </h1>
+</div>
+<div class="container">
+  <div>
+    Campaigns:
+    <li *ngFor="let campaign of campaigns">
+      on {{campaign.category.title}} category {{campaign.ratio}} {{campaign.discountType=="RATE" ? '%' : 'TL'}}
+      discount if you buy {{campaign.minItems}} products
+    </li>
+  </div>
+  <div>
+    Coupons:
+    <li *ngFor="let coupon of coupons">
+      Make {{coupon.minTotalAmount | number : '1.2-2'}} TL shopping, get {{coupon.discountAmount}}
+      {{coupon.discountType=="RATE" ? '%' : 'TL'}} discount
+    </li>
+  </div>
+</div>
+
+<div style="text-align:center">
+  <a [routerLink]="['/products']" class="btn btn-primary col-3 mr-3">
+    Producst List
+  </a>
+  <a [routerLink]="['/cart']" class="btn btn-primary col-3 ml-3">
+    Show Cart
+  </a>
+</div>
+
+<router-outlet></router-outlet>

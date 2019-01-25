@@ -1,0 +1,19 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Product Name</th>
+      <th scope="col">Category</th>
+      <th scope="col">Price</th>
+      <th scope="col">Add to cart</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let product of products">
+      <th scope="row">{{product.title}}</th>
+      <td>{{product.category.title}}</td>
+      <td>{{product.price | number : '1.2-2'}}</td>
+      <td><a class="btn btn-link btn-outline-primary" (click)="addToCart(product)">Sepete ekle</a></td>
+    </tr>
+
+  </tbody>
+</table>
