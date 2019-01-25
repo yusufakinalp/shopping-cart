@@ -23,7 +23,7 @@ public class DeliveryTest {
     IDeliveryCostCalculator deliveryCostCalculator;
 
     @Test
-    public void calculateDeliveryCost() {
+    public void calculateDeliveryCost_Accuracy_True() {
         cloth = new Category("cloth");
         food = new Category("food");
         shirt = new Product("shirt",25.0,cloth);
@@ -39,7 +39,7 @@ public class DeliveryTest {
     }
 
     @Test
-    public void calculateDeliveryCost2() {
+    public void calculateDeliveryCost2_Accuracy_True() {
         cloth = new Category("cloth");
         food = new Category("food");
         shirt = new Product("shirt",25.0,cloth);

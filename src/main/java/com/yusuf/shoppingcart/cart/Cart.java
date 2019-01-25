@@ -1,11 +1,6 @@
 package com.yusuf.shoppingcart.cart;
 
-import com.yusuf.shoppingcart.delivery.DeliveryCostCalculator;
-import com.yusuf.shoppingcart.delivery.DeliveryCostCalculatorFactory;
-import com.yusuf.shoppingcart.delivery.IDeliveryCostCalculator;
 import com.yusuf.shoppingcart.discount.CampaignStrategy;
-import com.yusuf.shoppingcart.discount.Coupon;
-import com.yusuf.shoppingcart.discount.Campaign;
 import com.yusuf.shoppingcart.discount.CouponStrategy;
 import com.yusuf.shoppingcart.product.Category;
 import com.yusuf.shoppingcart.product.Product;
@@ -42,6 +37,8 @@ public class Cart {
     }
 
     public void addItem(Product product, int quantity) {
+        if (quantity < 0)
+            throw new RuntimeException("Quantity cannot be negative in addItem method");
         productsCount += quantity;
         categories.add(product.getCategory());
         if (products.containsKey(product)) {

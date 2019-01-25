@@ -13,7 +13,7 @@ import static org.junit.Assert.assertNotNull;
 public class ProductTest {
 
     @Test
-    public void categoryTest() {
+    public void category_Title_Equal() {
         Category food = new Category("food");
 
         String title = food.getTitle();
@@ -22,7 +22,7 @@ public class ProductTest {
     }
 
     @Test
-    public void productTest() {
+    public void product_Title_Equal() {
         Category electronic = new Category("tech");
         Product phone = new Product("phoneX", 123.4, electronic);
 
@@ -31,5 +31,16 @@ public class ProductTest {
         assertNotNull(electronic);
         assertEquals("phoneX", title);
         assertEquals(electronic, category);
+    }
+
+    @Test(expected = Exception.class)
+    public void category_TitleBlank_ThrownException() {
+        Category food = new Category("");
+    }
+
+    @Test(expected = Exception.class)
+    public void product_NegativePrice_ThrownException() {
+        Category electronic = new Category("tech");
+        Product phone = new Product("phoneX", -123.4, electronic);
     }
 }

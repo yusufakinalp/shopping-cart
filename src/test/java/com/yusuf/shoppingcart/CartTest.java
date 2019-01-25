@@ -19,7 +19,7 @@ public class CartTest {
     Cart cart;
 
     @Test
-    public void cartTest() {
+    public void cart_Constructor_NotNull() {
         cloth = new Category("cloth");
         shirt = new Product("shirt",25.0,cloth);
         cart = new Cart();
@@ -31,7 +31,7 @@ public class CartTest {
     }
 
     @Test
-    public void totalAmountTest() {
+    public void totalAmount_Accuracy_True() {
         cloth = new Category("cloth");
         shirt = new Product("shirt",25.0,cloth);
         cart = new Cart();
@@ -41,5 +41,21 @@ public class CartTest {
         double total = cart.getTotalAmount();
         assertNotNull(cart);
         assertEquals(150, total, .9);
+    }
+
+    @Test(expected = RuntimeException.class)
+    public void addItem_NegativeQuantity_ThrowsException() {
+        cloth = new Category("cloth");
+        shirt = new Product("shirt",25.0,cloth);
+        cart = new Cart();
+        cart.addItem(shirt,-1);
+    }
+
+    @Test
+    public void totalAmount_CalculateEmptyCart_Zero() {
+        cart = new Cart();
+        cart.calculateTotalAmount();
+        double result = cart.getTotalAmount();
+        assertEquals(0, result, 0);
     }
 }

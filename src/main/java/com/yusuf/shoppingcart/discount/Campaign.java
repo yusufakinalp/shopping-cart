@@ -17,6 +17,10 @@ public class Campaign implements CampaignStrategy {
     }
 
     public Campaign(Category category, double ratio, int minItems, DiscountType discountType) {
+        if (ratio < 0)
+            throw new RuntimeException("Campaign cannot take in an negative value for the \"ratio\" constructor");
+        if (minItems < 0)
+            throw new RuntimeException("Campaign items cannot take in an negative value for the \"minItems\" constructor");
         this.category = category;
         this.ratio = ratio;
         this.minItems = minItems;
@@ -33,7 +37,7 @@ public class Campaign implements CampaignStrategy {
             if (discountType.equals(DiscountType.RATE)) {
                 discount = totalAmount * ratio / 100;
             } else if (discountType.equals(DiscountType.AMOUNT)) {
-                int times = (int)(productsCount / minItems);
+                int times = productsCount / minItems;
                 discount = ratio * times;
             }
         }

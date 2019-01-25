@@ -1,7 +1,5 @@
 package com.yusuf.shoppingcart.product;
 
-import java.util.List;
-
 public class Category {
 
     private String title;
@@ -10,6 +8,8 @@ public class Category {
 
 
     public Category(String title) {
+        if(title == null || title.isEmpty())
+            throw new RuntimeException("Category cannot take in an empty String or null value for the \"title\" constructor");
         this.title = title;
     }
 

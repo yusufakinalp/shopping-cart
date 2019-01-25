@@ -30,7 +30,7 @@ public class DiscountTest {
     }
 
     @Test
-    public void discountTest() {
+    public void discountTest_Accuracy_True() {
         cart = new Cart();
         food = new Category("food");
         cloth = new Category("cloth");
@@ -53,7 +53,7 @@ public class DiscountTest {
     }
 
     @Test
-    public void discountTest2() {
+    public void discountTest2_Accuracy_True() {
         cart = new Cart();
         cloth = new Category("cloth");
         food = new Category("food");
@@ -73,5 +73,17 @@ public class DiscountTest {
 
         assertEquals(20.0, campaignDiscount, .9);
         assertEquals(20.0, couponDiscount, .9);
+    }
+
+    @Test(expected = RuntimeException.class)
+    public void campaign_NegativeValue_ThrowException() {
+        cloth = new Category("cloth");
+        campaignRate = new Campaign(cloth, 10, -2, DiscountType.RATE);
+    }
+
+    @Test(expected = RuntimeException.class)
+    public void coupon_NegativeValue_ThrowException() {
+        cloth = new Category("cloth");
+        campaignRate = new Campaign(cloth, -5, -2, DiscountType.RATE);
     }
 }
