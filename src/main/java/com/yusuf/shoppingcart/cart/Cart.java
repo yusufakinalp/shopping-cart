@@ -4,11 +4,9 @@ import com.yusuf.shoppingcart.discount.CampaignStrategy;
 import com.yusuf.shoppingcart.discount.CouponStrategy;
 import com.yusuf.shoppingcart.product.Category;
 import com.yusuf.shoppingcart.product.Product;
+import com.yusuf.shoppingcart.product.ProductDTO;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class Cart {
 
@@ -61,11 +59,11 @@ public class Cart {
         totalAmount = total;
     }
 
-    public void applyDiscounts(CampaignStrategy... campaigns) {
+    public void applyDiscounts(List<CampaignStrategy> campaigns) {
         campaignDiscount = new CartDiscountCalculator().calculateCampaignDiscounts(this, campaigns);
     }
 
-    public void applyCoupon(CouponStrategy... coupons) {
+    public void applyCoupon(List<CouponStrategy> coupons) {
         couponDiscount = new CartDiscountCalculator().calculateCouponDiscount(this, coupons);
     }
 
@@ -138,5 +136,17 @@ public class Cart {
         System.out.printf("Coupon Discount                    : %10.2f %n", getCouponDiscount());
         System.out.printf("Total Amount After Discount        : %10.2f %n", getTotalAmountAfterDiscount());
         System.out.printf("Delivery Cost                      : %10.2f %n", getDeliveryCost());
+    }
+
+    public List<ProductDTO> getSortedProducts() {
+        List<ProductDTO> productDTOList = new ArrayList<>();
+        for (Category category: categories) {
+            for (Map.Entry<Product, Integer> item : products.entrySet()) {
+                if (category.equals(item.getKey().getCategory())) {
+                    productDTOList.add(new ProductDTO(item.getKey().getTitle(),item.getValue(), category.getTitle(),item.getKey().getPrice()));
+                }
+            }
+        }
+        return productDTOList;
     }
 }

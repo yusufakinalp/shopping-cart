@@ -10,6 +10,9 @@ public class Coupon implements CouponStrategy {
 
     private DiscountType discountType;
 
+    public Coupon() {
+    }
+
     public Coupon(double minTotalAmount, double discountAmount, DiscountType discountType) {
         if (minTotalAmount < 0)
             throw new RuntimeException("Minimum total amount cannot take in an negative value for the \"Coupon\" constructor");
@@ -35,5 +38,17 @@ public class Coupon implements CouponStrategy {
         }
 
         return discount;
+    }
+
+    public double getMinTotalAmount() {
+        return minTotalAmount;
+    }
+
+    public double getDiscountAmount() {
+        return discountAmount;
+    }
+
+    public DiscountType getDiscountType() {
+        return discountType;
     }
 }

@@ -7,10 +7,11 @@ import com.yusuf.shoppingcart.discount.CouponStrategy;
 import com.yusuf.shoppingcart.product.Category;
 
 import java.util.HashMap;
+import java.util.List;
 
 public class CartDiscountCalculator {
 
-    public double calculateCampaignDiscounts(Cart cart, CampaignStrategy... campaigns){
+    public double calculateCampaignDiscounts(Cart cart, List<CampaignStrategy> campaigns){
         double totalDiscount = 0;
         HashMap<Category, Double> categoryDiscount = new HashMap<>();
 
@@ -33,7 +34,7 @@ public class CartDiscountCalculator {
         return totalDiscount;
     }
 
-    public double calculateCouponDiscount(Cart cart, CouponStrategy... coupons) {
+    public double calculateCouponDiscount(Cart cart, List<CouponStrategy> coupons) {
         double maxDiscount = 0;
 
         for (CouponStrategy coupon : coupons) {

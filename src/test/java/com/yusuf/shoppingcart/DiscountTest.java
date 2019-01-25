@@ -9,6 +9,9 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.Assert.assertEquals;
 
 @RunWith(SpringRunner.class)
@@ -35,15 +38,17 @@ public class DiscountTest {
         food = new Category("food");
         cloth = new Category("cloth");
         shirt = new Product("shirt",25.0,cloth);
-        campaignRate = new Campaign(cloth, 10, 6, DiscountType.RATE);
-        campaignAmount = new Campaign(food, 10, 5, DiscountType.AMOUNT);
+        List<CampaignStrategy> campaignList = new ArrayList<>();
+        campaignList.add( new Campaign(cloth, 10, 6, DiscountType.RATE));
+        campaignList.add(new Campaign(food, 10, 5, DiscountType.AMOUNT));
 
-        couponRate = new Coupon(150,15,DiscountType.RATE);
-        couponAmount = new Coupon(100,20,DiscountType.AMOUNT);
+        List<CouponStrategy> couponList = new ArrayList<>();
+        couponList.add( new Coupon(150,15,DiscountType.RATE));
+        couponList.add( new Coupon(100,20,DiscountType.AMOUNT));
 
         cart.addItem(shirt, 6);
-        cart.applyDiscounts(campaignAmount, campaignRate);
-        cart.applyCoupon(couponAmount, couponRate);
+        cart.applyDiscounts(campaignList);
+        cart.applyCoupon(couponList);
 
         double campaignDiscount = cart.getCampaignDiscount();
         double couponDiscount = cart.getCouponDiscount();
@@ -58,15 +63,17 @@ public class DiscountTest {
         cloth = new Category("cloth");
         food = new Category("food");
         pineapple = new Product("pineapple",10,food);
-        campaignRate = new Campaign(cloth, 10, 6, DiscountType.RATE);
-        campaignAmount = new Campaign(food, 10, 5, DiscountType.AMOUNT);
+        List<CampaignStrategy> campaignList = new ArrayList<>();
+        campaignList.add( new Campaign(cloth, 10, 6, DiscountType.RATE));
+        campaignList.add(new Campaign(food, 10, 5, DiscountType.AMOUNT));
 
-        couponRate = new Coupon(150,15,DiscountType.RATE);
-        couponAmount = new Coupon(100,20,DiscountType.AMOUNT);
+        List<CouponStrategy> couponList = new ArrayList<>();
+        couponList.add( new Coupon(150,15,DiscountType.RATE));
+        couponList.add( new Coupon(100,20,DiscountType.AMOUNT));
 
         cart.addItem(pineapple, 10);
-        cart.applyDiscounts(campaignAmount, campaignRate);
-        cart.applyCoupon(couponAmount, couponRate);
+        cart.applyDiscounts(campaignList);
+        cart.applyCoupon(couponList);
 
         double campaignDiscount = cart.getCampaignDiscount();
         double couponDiscount = cart.getCouponDiscount();

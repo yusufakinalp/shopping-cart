@@ -47,4 +47,16 @@ public class Campaign implements CampaignStrategy {
     public Category getCategory() {
         return category;
     }
+
+    public double getRatio() {
+        return ratio;
+    }
+
+    public int getMinItems() {
+        return minItems;
+    }
+
+    public DiscountType getDiscountType() {
+        return discountType;
+    }
 }

@@ -6,6 +6,8 @@ public class Category {
 
     private Category category;
 
+    public Category() {
+    }
 
     public Category(String title) {
         if(title == null || title.isEmpty())

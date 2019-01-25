@@ -11,6 +11,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @SpringBootApplication
 public class ShoppingCartApplication {
 
@@ -34,14 +37,16 @@ public class ShoppingCartApplication {
 			cart.addItem(apple,5);
 			cart.addItem(shirt, 7);
 
-			CampaignStrategy campaignAmount = new Campaign(food,10,2,DiscountType.AMOUNT);
-			CampaignStrategy campaignRate = new Campaign(cloth, 10, 6, DiscountType.RATE);
+			List<CampaignStrategy> campaignList = new ArrayList<>();
+			campaignList.add( new Campaign(food,10,2,DiscountType.AMOUNT));
+			campaignList.add(new Campaign(cloth, 10, 6, DiscountType.RATE));
 
-			CouponStrategy couponRate = new Coupon(100,15,DiscountType.RATE);
-			CouponStrategy couponAmount = new Coupon(100,20,DiscountType.AMOUNT);
+			List<CouponStrategy> couponList = new ArrayList<>();
+			couponList.add( new Coupon(100,15,DiscountType.RATE));
+			couponList.add( new Coupon(100,20,DiscountType.AMOUNT));
 
-			cart.applyDiscounts(campaignAmount, campaignRate);
-			cart.applyCoupon(couponAmount,couponRate);
+			cart.applyDiscounts(campaignList);
+			cart.applyCoupon(couponList);
 			IDeliveryCostCalculator deliveryCostCalculator = new DeliveryCostCalculatorFactory().getDeliveryCostCalculator(2.0,2.0,2.45);
 			cart.setDeliveryCost(deliveryCostCalculator.calculateFor(cart));
 

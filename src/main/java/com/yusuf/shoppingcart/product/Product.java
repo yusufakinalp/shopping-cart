@@ -10,6 +10,9 @@ public class Product {
 
     private Category category;
 
+    public Product() {
+    }
+
     public Product(String title, double price, Category category) {
         if(title == null || title.isEmpty())
             throw new RuntimeException("Product cannot take in an empty String or null value for the \"title\" constructor");
