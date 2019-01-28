@@ -36,6 +36,29 @@ export class CartComponent implements OnInit {
     });
   }
 
+  addToCart(product) {
+    console.log(product);
+    this.http.post(this.baseUrl + '/api/add-item', product)
+      .subscribe(res => {
+        this.getProducts();
+        this.getCart();
+        }, (err) => {
+          console.log(err);
+        }
+      );
+  }
+
+  removeFromCart(product) {
+    this.http.post(this.baseUrl + '/api/remove-item', product)
+      .subscribe(res => {
+          this.getProducts();
+          this.getCart();
+        }, (err) => {
+          console.log(err);
+        }
+      );
+  }
+
   completeShopping() {
     this.http.get(this.baseUrl + '/api/complete-shopping').subscribe(data => {
       this.router.navigate(['/products']);
