@@ -48,6 +48,24 @@ public class Cart {
         calculateTotalAmount();
     }
 
+    public void removeItem(Product product, int quantity) {
+        if (products.containsKey(product)) {
+            int productQuantity = products.get(product);
+            int result = productQuantity - quantity;
+            if (result == 0) {
+                products.remove(product);
+            } else if (result > 0) {
+                products.put(product, result);
+            } else if (result < 0) {
+                throw new RuntimeException("Removing too many items at once");
+            }
+        } else {
+            throw new RuntimeException("There is no such product in the cart");
+        }
+        productsCount -= quantity;
+        calculateTotalAmount();
+    }
+
     public void calculateTotalAmount() {
         double total = 0;
 

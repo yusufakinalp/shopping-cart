@@ -58,4 +58,32 @@ public class CartTest {
         double result = cart.getTotalAmount();
         assertEquals(0, result, 0);
     }
+
+    @Test
+    public void removeItem_Remove_AssertEquals() {
+        cloth = new Category("cloth");
+        shirt = new Product("shirt",25.0,cloth);
+        cart = new Cart();
+        cart.addItem(shirt,4);
+        cart.removeItem(shirt, 2);
+        int result = cart.getProductsCount();
+        assertEquals(2, result);
+    }
+
+    @Test(expected = RuntimeException.class)
+    public void removeItem_RemoveBiggerThanItemQuantity_ThrowsException() {
+        cloth = new Category("cloth");
+        shirt = new Product("shirt",25.0,cloth);
+        cart = new Cart();
+        cart.addItem(shirt,4);
+        cart.removeItem(shirt, 5);
+    }
+
+    @Test(expected = RuntimeException.class)
+    public void removeItem_RemoveItemNotInTheCart_ThrowsException() {
+        cloth = new Category("cloth");
+        shirt = new Product("shirt",25.0,cloth);
+        cart = new Cart();
+        cart.removeItem(shirt, 5);
+    }
 }

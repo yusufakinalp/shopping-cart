@@ -45,6 +45,14 @@ public class CartController {
         return ResponseEntity.ok().build();
     }
 
+    @PostMapping(path = "/remove-item")
+    public ResponseEntity<?> removeItem(@RequestBody Product product) {
+        Cart cart = CartService.getCart();
+        Product temp = ProductService.getProducts().get(product.getTitle());
+        cart.removeItem(temp, 1);
+        return ResponseEntity.ok().build();
+    }
+
     @GetMapping(path = "/campaigns")
     public List<CampaignStrategy> getCampaigns() {
         return ProductService.getCampaigns();
