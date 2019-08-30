@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { Cart } from './cart';
 
 @Component({
   selector: 'app-cart',
@@ -10,7 +11,7 @@ import { Router } from '@angular/router';
 export class CartComponent implements OnInit {
 
   private baseUrl = 'http://localhost:8080';
-  cart: any;
+  cart: Cart;
   products: any;
 
   constructor(private http: HttpClient, private router: Router) { }
@@ -21,10 +22,10 @@ export class CartComponent implements OnInit {
   }
 
   getCart() {
-    this.http.get(this.baseUrl + '/api/cart').subscribe(data => {
+    this.http.get<Cart>(this.baseUrl + '/api/cart').subscribe(data => {
       this.cart = data;
       console.log('Cart :');
-      console.log(this.cart.products);
+      console.log(this.cart);
     });
   }
 
@@ -34,6 +35,29 @@ export class CartComponent implements OnInit {
       console.log('products :');
       console.log(this.products);
     });
+  }
+
+  addToCart(product) {
+    console.log(product);
+    this.http.post(this.baseUrl + '/api/add-item', product)
+      .subscribe(res => {
+        this.getProducts();
+        this.getCart();
+        }, (err) => {
+          console.log(err);
+        }
+      );
+  }
+
+  removeFromCart(product) {
+    this.http.post(this.baseUrl + '/api/remove-item', product)
+      .subscribe(res => {
+          this.getProducts();
+          this.getCart();
+        }, (err) => {
+          console.log(err);
+        }
+      );
   }
 
   completeShopping() {

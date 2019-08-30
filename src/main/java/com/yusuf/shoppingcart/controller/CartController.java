@@ -1,6 +1,7 @@
 package com.yusuf.shoppingcart.controller;
 
 import com.yusuf.shoppingcart.cart.Cart;
+import com.yusuf.shoppingcart.cart.CartDTO;
 import com.yusuf.shoppingcart.controller.service.CartService;
 import com.yusuf.shoppingcart.delivery.DeliveryCostCalculatorFactory;
 import com.yusuf.shoppingcart.delivery.IDeliveryCostCalculator;
@@ -27,13 +28,9 @@ public class CartController {
     }
 
     @GetMapping(path = "/cart")
-    public ResponseEntity<Cart> getCart() {
-        Cart cart = CartService.getCart();
-        cart.calculateTotalAmount();
-        cart.applyDiscounts(ProductService.getCampaigns());
-        cart.applyCoupon(ProductService.getCoupons());
-        IDeliveryCostCalculator deliveryCostCalculator = new DeliveryCostCalculatorFactory().getDeliveryCostCalculator(2.0,2.0,2.45);
-        cart.setDeliveryCost(deliveryCostCalculator.calculateFor(cart));
+    public ResponseEntity<CartDTO> getCart() {
+        CartDTO cart = CartService.getCartDTO();
+
         return ResponseEntity.ok(cart);
     }
 
@@ -42,6 +39,14 @@ public class CartController {
         Cart cart = CartService.getCart();
         Product temp = ProductService.getProducts().get(product.getTitle());
         cart.addItem(temp, 1);
+        return ResponseEntity.ok().build();
+    }
+
+    @PostMapping(path = "/remove-item")
+    public ResponseEntity<?> removeItem(@RequestBody Product product) {
+        Cart cart = CartService.getCart();
+        Product temp = ProductService.getProducts().get(product.getTitle());
+        cart.removeItem(temp, 1);
         return ResponseEntity.ok().build();
     }
 
